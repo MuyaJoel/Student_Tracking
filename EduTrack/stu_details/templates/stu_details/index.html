@@ -24,12 +24,29 @@
           </thead>
           <tbody>
             {% for student in students %}
-            <tr>
-              <td>{{ student.student_Id }}</td>
+            <tr id="student-{{ student.student_Id }}">
+              <td >{{ student.student_Id }}</td>
               <td>{{ student.Name }}</td>
               <td><a href="">{{ student.rfid_Tag }}</a></td>
+
+              <td id="status-{{ student.student_Id}}">
+                {% if
+                student.movement.filter(check_out_time__isnull=True).exists
+                %} Checked In {% else %} Checked Out {% endif %}
+              </td>
               <td>
-                <a href="">Check-In/Out</a>
+                <button
+                  class="check-in"
+                  onclick="updateMovement('{{ student.rfid_tag }}', 'check-in')"
+                >
+                  Check In
+                </button>
+                <button
+                  class="check-out"
+                  onclick="updateMovement('{{ student.rfid_tag }}', 'check-out')"
+                >
+                  Check Out
+                </button>
               </td>
             </tr>
             {% endfor %}

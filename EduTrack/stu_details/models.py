@@ -11,6 +11,6 @@ class Student(models.Model):
 
 class Movement(models.Model):
     student=models.ForeignKey(Student, on_delete=models.CASCADE)
-    check_In=models.DateTimeField(auto_now_add=True)
-    check_Out=models.DateTimeField(null=True,blank=True)
+    check_in_time=models.DateTimeField(auto_now_add=True)
+    check_out_time=models.DateTimeField(null=True,blank=True)
     location=models.CharField(max_length=255)
