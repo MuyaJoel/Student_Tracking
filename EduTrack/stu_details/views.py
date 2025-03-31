@@ -7,6 +7,11 @@ from django.http import JsonResponse
 def students_dashboard(request):
     students=Student.objects.all()
 
+    for student in students:
+       student.is_checked_in = Movement.objects.filter(
+           student=student, check_out_time__isnull=True
+       ).exists()
+
     return render(request, 'stu_details/index.html', {'students':students})
 
 
