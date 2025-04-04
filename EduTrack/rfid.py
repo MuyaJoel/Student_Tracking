@@ -4,7 +4,7 @@ import RPi.GPIO as GPIO
 from mfrc522 import SimpleMFRC522
 from datetime import datetime
 
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "student_tracking.settings")
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "EduTrack.settings")
 django.setup()
 
 from stu_details.models import Student, Movement  
@@ -20,10 +20,10 @@ def update_database(rfid_tag):
             if movement:
                 movement.check_out_time = datetime.now()
                 movement.save()
-                print(f"Student {student.name} (ID: {student.id}) checked out.")
+                print(f"Student {student.Name} (ID: {student.student_Id}) checked out.")
             else:
                 Movement.objects.create(student=student, location="School Gate", check_in_time=datetime.now())
-                print(f"Student {student.name} (ID: {student.id}) checked in.")
+                print(f"Student {student.Name} (ID: {student.student_Id}) checked in.")
 
         else:
             print("RFID tag not assigned to any student.")
